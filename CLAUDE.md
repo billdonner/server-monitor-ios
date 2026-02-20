@@ -35,6 +35,13 @@ Requires `NSAllowsLocalNetworking = true` in ATS config.
 | `Widget/` | WidgetKit extension |
 | `Tests/` | SPM test target |
 
+## Error Highlighting
+
+All three dashboard frontends (web, terminal TUI, iOS) share the same error behavior:
+- Server panels get a **red border** when a server is unreachable or returns an error
+- Border clears automatically when the server recovers
+- iOS: 2pt red stroke + red shadow overlay on `ServerCardView`
+
 ## Port
 
 Uses server-monitor at port **9860** (see ~/alities/CLAUDE.md port registry).

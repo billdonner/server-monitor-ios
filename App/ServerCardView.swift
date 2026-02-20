@@ -65,6 +65,13 @@ struct ServerCardView: View {
                 .fill(Color(.secondarySystemGroupedBackground))
                 .shadow(color: .black.opacity(0.08), radius: 4, y: 2)
         }
+        .overlay {
+            if server.error != nil {
+                RoundedRectangle(cornerRadius: 12, style: .continuous)
+                    .stroke(.red, lineWidth: 2)
+                    .shadow(color: .red.opacity(0.3), radius: 6)
+            }
+        }
     }
 
     private var statusDotColor: Color {
