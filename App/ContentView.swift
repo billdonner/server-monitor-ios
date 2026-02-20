@@ -91,27 +91,64 @@ struct ContentView: View {
         }
     }
 
-    // MARK: - Header
+    // MARK: - Header / Status Banner
+
+    private var errorServers: [ServerSnapshot] {
+        servers.filter { $0.error != nil }
+    }
+
+    private var bannerIsOK: Bool {
+        !servers.isEmpty && errorServers.isEmpty && errorMessage == nil
+    }
 
     private var header: some View {
         HStack {
-            Image(systemName: "server.rack")
+            Image(systemName: bannerIsOK ? "checkmark.shield.fill" : "exclamationmark.triangle.fill")
                 .font(.title2)
-            Text("Server Monitor")
-                .font(.title2.bold())
+            VStack(alignment: .leading, spacing: 2) {
+                Text(bannerTitle)
+                    .font(.title3.bold())
+                if !bannerDetail.isEmpty {
+                    Text(bannerDetail)
+                        .font(.caption)
+                        .opacity(0.9)
+                }
+            }
             Spacer()
             if let lastRefresh {
                 Text(lastRefresh, style: .time)
                     .font(.caption)
-                    .foregroundStyle(.secondary)
+                    .opacity(0.8)
             }
-            Circle()
-                .fill(errorMessage == nil ? .green : .red)
-                .frame(width: 8, height: 8)
         }
+        .foregroundStyle(.white)
         .padding(.horizontal, 16)
         .padding(.vertical, 12)
-        .background(.ultraThinMaterial)
+        .background(bannerColor)
+        .animation(.easeInOut(duration: 0.4), value: bannerIsOK)
+    }
+
+    private var bannerColor: Color {
+        if servers.isEmpty { return .gray }
+        if errorMessage != nil || !errorServers.isEmpty { return .red }
+        return .green
+    }
+
+    private var bannerTitle: String {
+        if servers.isEmpty { return "Server Monitor" }
+        if let errorMessage { return "Connection Error" }
+        let count = errorServers.count
+        if count > 0 { return "\(count) Server\(count > 1 ? "s" : "") Down" }
+        return "All Systems OK"
+    }
+
+    private var bannerDetail: String {
+        if servers.isEmpty { return "" }
+        if errorMessage != nil { return errorMessage ?? "" }
+        let errNames = errorServers.map(\.name)
+        if !errNames.isEmpty { return errNames.joined(separator: ", ") }
+        let healthy = servers.count
+        return "\(healthy)/\(healthy) servers healthy"
     }
 
     // MARK: - Refresh
