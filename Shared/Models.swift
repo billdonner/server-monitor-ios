@@ -38,10 +38,6 @@ struct ServerSnapshot: Codable, Identifiable, Sendable {
         if isWaiting { return "gray" }
         if error != nil { return "red" }
         if hadError == true { return "yellow" }
-        // Check if any metric is in warning state
-        for metric in metrics {
-            if metric.isWarning { return "yellow" }
-        }
         return "green"
     }
 

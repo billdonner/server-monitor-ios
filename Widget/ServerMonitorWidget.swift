@@ -83,6 +83,10 @@ struct ServerMonitorWidgetEntryView: View {
                     .font(.caption2)
                 Text("Monitor")
                     .font(.caption2.bold())
+                Spacer()
+                Text(lastUpdatedText)
+                    .font(.system(size: 9))
+                    .foregroundStyle(.tertiary)
             }
             .foregroundStyle(.secondary)
 
@@ -121,6 +125,11 @@ struct ServerMonitorWidgetEntryView: View {
                 Text(summaryText)
                     .font(.caption2)
                     .foregroundStyle(.secondary)
+                Text("·")
+                    .foregroundStyle(.tertiary)
+                Text(lastUpdatedText)
+                    .font(.caption2)
+                    .foregroundStyle(.tertiary)
             }
 
             Divider()
@@ -173,6 +182,11 @@ struct ServerMonitorWidgetEntryView: View {
                 Text(summaryText)
                     .font(.caption2)
                     .foregroundStyle(.secondary)
+                Text("·")
+                    .foregroundStyle(.tertiary)
+                Text(lastUpdatedText)
+                    .font(.caption2)
+                    .foregroundStyle(.tertiary)
             }
 
             Divider()
@@ -232,6 +246,12 @@ struct ServerMonitorWidgetEntryView: View {
         let healthy = entry.servers.filter { $0.isHealthy }.count
         let total = entry.servers.count
         return "\(healthy)/\(total) healthy"
+    }
+
+    private var lastUpdatedText: String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "h:mm a"
+        return formatter.string(from: entry.date)
     }
 }
 
