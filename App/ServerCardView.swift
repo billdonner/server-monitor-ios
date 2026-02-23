@@ -70,6 +70,10 @@ struct ServerCardView: View {
                 RoundedRectangle(cornerRadius: 12, style: .continuous)
                     .stroke(.red, lineWidth: 2)
                     .shadow(color: .red.opacity(0.3), radius: 6)
+            } else if server.isWarned {
+                RoundedRectangle(cornerRadius: 12, style: .continuous)
+                    .stroke(.yellow, lineWidth: 2)
+                    .shadow(color: .yellow.opacity(0.3), radius: 6)
             }
         }
     }
@@ -122,7 +126,8 @@ struct MetricRowView: View {
             Metric(key: "requests", label: "Requests", value: .int(1234), unit: "req/s", color: nil, warnAbove: 5000, warnBelow: nil),
             Metric(key: "memory", label: "Memory", value: .double(67.3), unit: "MB", color: nil, warnAbove: 512, warnBelow: nil),
         ],
-        error: nil
+        error: nil,
+        hadError: nil
     ))
     .padding()
 }

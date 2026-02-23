@@ -256,6 +256,63 @@ final class ModelsTests: XCTestCase {
         XCTAssertEqual(metric.computedColor, "green")
     }
 
+    // MARK: - Sticky Warning (hadError)
+
+    func testServerSnapshotRecoveredIsWarned() throws {
+        let json = """
+        {
+            "name": "Recovered",
+            "url": "http://localhost:9847/metrics",
+            "poll_every": 15,
+            "last_updated": 1708354200.0,
+            "metrics": [{"key": "up", "label": "Up", "value": 1}],
+            "error": null,
+            "had_error": true
+        }
+        """.data(using: .utf8)!
+
+        let server = try JSONDecoder().decode(ServerSnapshot.self, from: json)
+        XCTAssertTrue(server.isWarned)
+        XCTAssertTrue(server.isHealthy)
+        XCTAssertEqual(server.statusColor, "yellow")
+    }
+
+    func testServerSnapshotMissingHadErrorBackwardCompat() throws {
+        let json = """
+        {
+            "name": "OldServer",
+            "url": "http://localhost:9847/metrics",
+            "poll_every": 15,
+            "last_updated": 1708354200.0,
+            "metrics": [{"key": "up", "label": "Up", "value": 1}],
+            "error": null
+        }
+        """.data(using: .utf8)!
+
+        let server = try JSONDecoder().decode(ServerSnapshot.self, from: json)
+        XCTAssertFalse(server.isWarned)
+        XCTAssertNil(server.hadError)
+        XCTAssertEqual(server.statusColor, "green")
+    }
+
+    func testServerSnapshotHadErrorWithActiveError() throws {
+        let json = """
+        {
+            "name": "StillDown",
+            "url": "http://localhost:9847/metrics",
+            "poll_every": 15,
+            "last_updated": 1708354200.0,
+            "metrics": [],
+            "error": "Connection refused",
+            "had_error": true
+        }
+        """.data(using: .utf8)!
+
+        let server = try JSONDecoder().decode(ServerSnapshot.self, from: json)
+        XCTAssertFalse(server.isWarned)
+        XCTAssertEqual(server.statusColor, "red")
+    }
+
     // MARK: - Full Round-Trip
 
     func testFullResponseRoundTrip() throws {

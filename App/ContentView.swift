@@ -97,8 +97,12 @@ struct ContentView: View {
         servers.filter { $0.error != nil }
     }
 
+    private var warnedServers: [ServerSnapshot] {
+        servers.filter { $0.isWarned }
+    }
+
     private var bannerIsOK: Bool {
-        !servers.isEmpty && errorServers.isEmpty && errorMessage == nil
+        !servers.isEmpty && errorServers.isEmpty && warnedServers.isEmpty && errorMessage == nil
     }
 
     private var header: some View {
@@ -115,6 +119,18 @@ struct ContentView: View {
                 }
             }
             Spacer()
+            if !warnedServers.isEmpty {
+                Button {
+                    Task { await clearWarnings() }
+                } label: {
+                    Text("Clear")
+                        .font(.caption.bold())
+                        .padding(.horizontal, 10)
+                        .padding(.vertical, 4)
+                        .background(.white.opacity(0.25))
+                        .clipShape(Capsule())
+                }
+            }
             if let lastRefresh {
                 Text(lastRefresh, style: .time)
                     .font(.caption)
@@ -131,14 +147,17 @@ struct ContentView: View {
     private var bannerColor: Color {
         if servers.isEmpty { return .gray }
         if errorMessage != nil || !errorServers.isEmpty { return .red }
+        if !warnedServers.isEmpty { return .yellow }
         return .green
     }
 
     private var bannerTitle: String {
         if servers.isEmpty { return "Server Monitor" }
         if let errorMessage { return "Connection Error" }
-        let count = errorServers.count
-        if count > 0 { return "\(count) Server\(count > 1 ? "s" : "") Down" }
+        let errCount = errorServers.count
+        if errCount > 0 { return "\(errCount) Server\(errCount > 1 ? "s" : "") Down" }
+        let warnCount = warnedServers.count
+        if warnCount > 0 { return "\(warnCount) Server\(warnCount > 1 ? "s" : "") Recovered" }
         return "All Systems OK"
     }
 
@@ -147,6 +166,8 @@ struct ContentView: View {
         if errorMessage != nil { return errorMessage ?? "" }
         let errNames = errorServers.map(\.name)
         if !errNames.isEmpty { return errNames.joined(separator: ", ") }
+        let warnNames = warnedServers.map(\.name)
+        if !warnNames.isEmpty { return warnNames.joined(separator: ", ") }
         let healthy = servers.count
         return "\(healthy)/\(healthy) servers healthy"
     }
@@ -164,6 +185,11 @@ struct ContentView: View {
                 errorMessage = error.localizedDescription
             }
         }
+    }
+
+    private func clearWarnings() async {
+        try? await StatusService.shared.clearWarnings()
+        await refresh()
     }
 }
 

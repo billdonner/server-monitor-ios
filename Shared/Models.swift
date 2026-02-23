@@ -17,6 +17,7 @@ struct ServerSnapshot: Codable, Identifiable, Sendable {
     let lastUpdated: Double?
     let metrics: [Metric]
     let error: String?
+    let hadError: Bool?
 
     var id: String { name }
 
@@ -28,9 +29,15 @@ struct ServerSnapshot: Codable, Identifiable, Sendable {
         lastUpdated == nil && error == nil
     }
 
+    /// Server recovered from a previous error but warning not yet cleared.
+    var isWarned: Bool {
+        hadError == true && error == nil
+    }
+
     var statusColor: String {
         if isWaiting { return "gray" }
         if error != nil { return "red" }
+        if hadError == true { return "yellow" }
         // Check if any metric is in warning state
         for metric in metrics {
             if metric.isWarning { return "yellow" }
@@ -54,6 +61,7 @@ struct ServerSnapshot: Codable, Identifiable, Sendable {
         case name, url, metrics, error
         case pollEvery = "poll_every"
         case lastUpdated = "last_updated"
+        case hadError = "had_error"
     }
 }
 

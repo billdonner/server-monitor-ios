@@ -11,8 +11,8 @@ struct ServerMonitorEntry: TimelineEntry {
     static let placeholder = ServerMonitorEntry(
         date: .now,
         servers: [
-            ServerSnapshot(name: "Server 1", url: "", pollEvery: 15, lastUpdated: nil, metrics: [], error: nil),
-            ServerSnapshot(name: "Server 2", url: "", pollEvery: 10, lastUpdated: nil, metrics: [], error: nil),
+            ServerSnapshot(name: "Server 1", url: "", pollEvery: 15, lastUpdated: nil, metrics: [], error: nil, hadError: nil),
+            ServerSnapshot(name: "Server 2", url: "", pollEvery: 10, lastUpdated: nil, metrics: [], error: nil, hadError: nil),
         ],
         error: nil
     )
@@ -255,5 +255,6 @@ struct ServerMonitorWidget: Widget {
 struct ServerMonitorWidgetBundle: WidgetBundle {
     var body: some Widget {
         ServerMonitorWidget()
+        StatusLEDWidget()
     }
 }
