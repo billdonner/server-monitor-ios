@@ -17,6 +17,8 @@ targets:
       base:
         SWIFT_ACTIVE_COMPILATION_CONDITIONS: APP_TARGET
         PRODUCT_BUNDLE_IDENTIFIER: com.billdonner.ServerMonitor
+        DEVELOPMENT_TEAM: NEAY582ME4
+        CODE_SIGN_STYLE: Automatic
         MARKETING_VERSION: "1.0"
         CURRENT_PROJECT_VERSION: "1"
         GENERATE_INFOPLIST_FILE: "YES"
@@ -43,6 +45,8 @@ targets:
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.billdonner.ServerMonitor.Widget
+        DEVELOPMENT_TEAM: NEAY582ME4
+        CODE_SIGN_STYLE: Automatic
         MARKETING_VERSION: "1.0"
         CURRENT_PROJECT_VERSION: "1"
         ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
@@ -63,6 +67,8 @@ targets:
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.billdonner.ServerMonitor.watchkitapp
+        DEVELOPMENT_TEAM: NEAY582ME4
+        CODE_SIGN_STYLE: Automatic
         MARKETING_VERSION: "1.0"
         CURRENT_PROJECT_VERSION: "1"
         GENERATE_INFOPLIST_FILE: "YES"
@@ -83,6 +89,8 @@ targets:
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.billdonner.ServerMonitor.watchkitapp.widget
+        DEVELOPMENT_TEAM: NEAY582ME4
+        CODE_SIGN_STYLE: Automatic
         MARKETING_VERSION: "1.0"
         CURRENT_PROJECT_VERSION: "1"
         ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
