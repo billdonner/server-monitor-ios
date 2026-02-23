@@ -4,7 +4,7 @@ import Foundation
 actor StatusService {
     static let shared = StatusService()
 
-    var baseURL: String = "http://127.0.0.1:9860"
+    var baseURL: String = "https://bd-server-monitor.fly.dev"
 
     private let decoder: JSONDecoder = {
         let d = JSONDecoder()
