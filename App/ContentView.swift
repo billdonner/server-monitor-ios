@@ -2,6 +2,7 @@ import SwiftUI
 
 struct ContentView: View {
     @Environment(\.horizontalSizeClass) private var sizeClass
+    @AppStorage("hasSeenOnboarding") private var hasSeenOnboarding = false
     @State private var servers: [ServerSnapshot] = []
     @State private var lastRefresh: Date?
     @State private var errorMessage: String?
@@ -142,6 +143,9 @@ struct ContentView: View {
         .padding(.vertical, 12)
         .background(bannerColor)
         .animation(.easeInOut(duration: 0.4), value: bannerIsOK)
+        .onTapGesture(count: 3) {
+            hasSeenOnboarding = false
+        }
     }
 
     private var bannerColor: Color {
