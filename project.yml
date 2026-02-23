@@ -2,7 +2,7 @@ name: ServerMonitor
 options:
   bundleIdPrefix: com.billdonner
   deploymentTarget:
-    iOS: "17.0"
+    iOS: "18.5"
     watchOS: "10.0"
   xcodeVersion: "16.0"
 
