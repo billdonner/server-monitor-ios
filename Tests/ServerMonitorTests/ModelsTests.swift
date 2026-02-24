@@ -11,7 +11,7 @@ final class ModelsTests: XCTestCase {
             "servers": [
                 {
                     "name": "Test Server",
-                    "url": "http://localhost:9847/metrics",
+                    "url": "http://localhost:9810/metrics",
                     "poll_every": 15,
                     "last_updated": 1708354200.5,
                     "metrics": [
@@ -79,7 +79,7 @@ final class ModelsTests: XCTestCase {
         let json = """
         {
             "name": "Healthy",
-            "url": "http://localhost:9847/metrics",
+            "url": "http://localhost:9810/metrics",
             "poll_every": 15,
             "last_updated": 1708354200.0,
             "metrics": [{"key": "up", "label": "Up", "value": 1}],
@@ -96,7 +96,7 @@ final class ModelsTests: XCTestCase {
         let json = """
         {
             "name": "New Server",
-            "url": "http://localhost:9847/metrics",
+            "url": "http://localhost:9810/metrics",
             "poll_every": 15,
             "last_updated": null,
             "metrics": [],
@@ -114,7 +114,7 @@ final class ModelsTests: XCTestCase {
         let json = """
         {
             "name": "UniqueServer",
-            "url": "http://localhost:9847/metrics",
+            "url": "http://localhost:9810/metrics",
             "poll_every": 15,
             "last_updated": null,
             "metrics": [],
@@ -262,7 +262,7 @@ final class ModelsTests: XCTestCase {
         let json = """
         {
             "name": "Recovered",
-            "url": "http://localhost:9847/metrics",
+            "url": "http://localhost:9810/metrics",
             "poll_every": 15,
             "last_updated": 1708354200.0,
             "metrics": [{"key": "up", "label": "Up", "value": 1}],
@@ -281,7 +281,7 @@ final class ModelsTests: XCTestCase {
         let json = """
         {
             "name": "OldServer",
-            "url": "http://localhost:9847/metrics",
+            "url": "http://localhost:9810/metrics",
             "poll_every": 15,
             "last_updated": 1708354200.0,
             "metrics": [{"key": "up", "label": "Up", "value": 1}],
@@ -299,7 +299,7 @@ final class ModelsTests: XCTestCase {
         let json = """
         {
             "name": "StillDown",
-            "url": "http://localhost:9847/metrics",
+            "url": "http://localhost:9810/metrics",
             "poll_every": 15,
             "last_updated": 1708354200.0,
             "metrics": [],
@@ -320,8 +320,8 @@ final class ModelsTests: XCTestCase {
         {
             "servers": [
                 {
-                    "name": "Alities Engine",
-                    "url": "http://127.0.0.1:9847/metrics",
+                    "name": "card-engine",
+                    "url": "http://127.0.0.1:9810/metrics",
                     "poll_every": 15,
                     "last_updated": 1708354200.5,
                     "metrics": [
@@ -361,7 +361,7 @@ final class ModelsTests: XCTestCase {
         let decoded = try JSONDecoder().decode(StatusResponse.self, from: encoded)
 
         XCTAssertEqual(decoded.servers.count, 3)
-        XCTAssertEqual(decoded.servers[0].name, "Alities Engine")
+        XCTAssertEqual(decoded.servers[0].name, "card-engine")
         XCTAssertEqual(decoded.servers[0].metrics.count, 3)
         XCTAssertTrue(decoded.servers[0].isHealthy)
         XCTAssertEqual(decoded.servers[1].name, "Redis")
