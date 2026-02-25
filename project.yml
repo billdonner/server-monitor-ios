@@ -1,4 +1,4 @@
-name: ServerMonitor
+name: ZerverMonitor
 options:
   bundleIdPrefix: com.billdonner
   deploymentTarget:
@@ -7,7 +7,7 @@ options:
   xcodeVersion: "16.0"
 
 targets:
-  ServerMonitor:
+  ZerverMonitor:
     type: application
     platform: iOS
     sources:
@@ -18,11 +18,11 @@ targets:
     settings:
       base:
         SWIFT_ACTIVE_COMPILATION_CONDITIONS: APP_TARGET
-        PRODUCT_BUNDLE_IDENTIFIER: com.billdonner.ServerMonitor
+        PRODUCT_BUNDLE_IDENTIFIER: com.billdonner.ZerverMonitor
         DEVELOPMENT_TEAM: NEAY582ME4
         CODE_SIGN_STYLE: Automatic
         MARKETING_VERSION: "1.0"
-        CURRENT_PROJECT_VERSION: "1"
+        CURRENT_PROJECT_VERSION: "2"
         GENERATE_INFOPLIST_FILE: "YES"
         INFOPLIST_KEY_UIApplicationSceneManifest_Generation: "YES"
         INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents: "YES"
@@ -32,10 +32,11 @@ targets:
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
         ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
         INFOPLIST_KEY_NSAppTransportSecurity_NSAllowsLocalNetworking: "YES"
+        INFOPLIST_KEY_ITSAppUsesNonExemptEncryption: "NO"
     dependencies:
-      - target: ServerMonitorWidgetExtension
+      - target: ZerverMonitorWidgetExtension
 
-  ServerMonitorWidgetExtension:
+  ZerverMonitorWidgetExtension:
     type: app-extension
     platform: iOS
     sources:
@@ -43,21 +44,23 @@ targets:
       - path: Shared
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.billdonner.ServerMonitor.Widget
+        PRODUCT_BUNDLE_IDENTIFIER: com.billdonner.ZerverMonitor.Widget
         DEVELOPMENT_TEAM: NEAY582ME4
         CODE_SIGN_STYLE: Automatic
         MARKETING_VERSION: "1.0"
-        CURRENT_PROJECT_VERSION: "1"
+        CURRENT_PROJECT_VERSION: "2"
         ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
     info:
       path: Widget/Info.plist
       properties:
+        CFBundleVersion: "2"
+        ITSAppUsesNonExemptEncryption: false
         NSAppTransportSecurity:
           NSAllowsLocalNetworking: true
         NSExtension:
           NSExtensionPointIdentifier: com.apple.widgetkit-extension
 
-  ServerMonitorWatch:
+  ZerverMonitorWatch:
     type: application
     platform: watchOS
     sources:
@@ -67,19 +70,20 @@ targets:
         type: resource
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.billdonner.ServerMonitor.watchkitapp
+        PRODUCT_BUNDLE_IDENTIFIER: com.billdonner.ZerverMonitor.watchkitapp
         DEVELOPMENT_TEAM: NEAY582ME4
         CODE_SIGN_STYLE: Automatic
         MARKETING_VERSION: "1.0"
-        CURRENT_PROJECT_VERSION: "1"
+        CURRENT_PROJECT_VERSION: "2"
         GENERATE_INFOPLIST_FILE: "YES"
-        INFOPLIST_KEY_WKCompanionAppBundleIdentifier: com.billdonner.ServerMonitor
+        INFOPLIST_KEY_WKCompanionAppBundleIdentifier: com.billdonner.ZerverMonitor
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
         ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+        INFOPLIST_KEY_ITSAppUsesNonExemptEncryption: "NO"
     dependencies:
-      - target: ServerMonitorWatchWidgetExtension
+      - target: ZerverMonitorWatchWidgetExtension
 
-  ServerMonitorWatchWidgetExtension:
+  ZerverMonitorWatchWidgetExtension:
     type: app-extension
     platform: watchOS
     sources:
@@ -87,14 +91,16 @@ targets:
       - path: Shared
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.billdonner.ServerMonitor.watchkitapp.widget
+        PRODUCT_BUNDLE_IDENTIFIER: com.billdonner.ZerverMonitor.watchkitapp.widget
         DEVELOPMENT_TEAM: NEAY582ME4
         CODE_SIGN_STYLE: Automatic
         MARKETING_VERSION: "1.0"
-        CURRENT_PROJECT_VERSION: "1"
+        CURRENT_PROJECT_VERSION: "2"
         ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
     info:
       path: WatchWidget/Info.plist
       properties:
+        CFBundleVersion: "2"
+        ITSAppUsesNonExemptEncryption: false
         NSExtension:
           NSExtensionPointIdentifier: com.apple.widgetkit-extension

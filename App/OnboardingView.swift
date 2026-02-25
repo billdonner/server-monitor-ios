@@ -11,7 +11,7 @@ struct OnboardingView: View {
                     symbolName: "server.rack",
                     symbolRendering: .multicolor,
                     symbolColor: .blue,
-                    headline: "Server Monitor",
+                    headline: "Zerver Monitor",
                     bodyText: "Keep an eye on all your servers from one place. Real-time status for HTTP, Redis, and PostgreSQL — at a glance."
                 )
                 .tag(0)

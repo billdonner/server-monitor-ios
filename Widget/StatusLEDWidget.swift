@@ -5,7 +5,7 @@ import SwiftUI
 
 /// A simple red/yellow/green LED widget showing overall server health.
 struct StatusLEDWidgetEntryView: View {
-    var entry: ServerMonitorEntry
+    var entry: ZerverMonitorEntry
     @Environment(\.widgetFamily) var family
 
     var body: some View {
@@ -71,7 +71,7 @@ struct StatusLEDWidget: Widget {
     let kind = "StatusLEDWidget"
 
     var body: some WidgetConfiguration {
-        StaticConfiguration(kind: kind, provider: ServerMonitorProvider()) { entry in
+        StaticConfiguration(kind: kind, provider: ZerverMonitorProvider()) { entry in
             StatusLEDWidgetEntryView(entry: entry)
                 .containerBackground(.fill.tertiary, for: .widget)
         }

@@ -1,7 +1,7 @@
 import SwiftUI
 
 @main
-struct ServerMonitorWatchApp: App {
+struct ZerverMonitorWatchApp: App {
     var body: some Scene {
         WindowGroup {
             WatchContentView()

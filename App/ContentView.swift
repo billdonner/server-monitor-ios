@@ -156,7 +156,7 @@ struct ContentView: View {
     }
 
     private var bannerTitle: String {
-        if servers.isEmpty { return "Server Monitor" }
+        if servers.isEmpty { return "Zerver Monitor" }
         if let errorMessage { return "Connection Error" }
         let errCount = errorServers.count
         if errCount > 0 { return "\(errCount) Server\(errCount > 1 ? "s" : "") Down" }

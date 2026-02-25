@@ -3,12 +3,12 @@ import SwiftUI
 
 // MARK: - Timeline Entry
 
-struct ServerMonitorEntry: TimelineEntry {
+struct ZerverMonitorEntry: TimelineEntry {
     let date: Date
     let servers: [ServerSnapshot]
     let error: String?
 
-    static let placeholder = ServerMonitorEntry(
+    static let placeholder = ZerverMonitorEntry(
         date: .now,
         servers: [
             ServerSnapshot(name: "Server 1", url: "", pollEvery: 15, lastUpdated: nil, metrics: [], error: nil, hadError: nil),
@@ -20,12 +20,12 @@ struct ServerMonitorEntry: TimelineEntry {
 
 // MARK: - Timeline Provider
 
-struct ServerMonitorProvider: TimelineProvider {
-    func placeholder(in context: Context) -> ServerMonitorEntry {
+struct ZerverMonitorProvider: TimelineProvider {
+    func placeholder(in context: Context) -> ZerverMonitorEntry {
         .placeholder
     }
 
-    func getSnapshot(in context: Context, completion: @escaping (ServerMonitorEntry) -> Void) {
+    func getSnapshot(in context: Context, completion: @escaping (ZerverMonitorEntry) -> Void) {
         if context.isPreview {
             completion(.placeholder)
             return
@@ -36,7 +36,7 @@ struct ServerMonitorProvider: TimelineProvider {
         }
     }
 
-    func getTimeline(in context: Context, completion: @escaping (Timeline<ServerMonitorEntry>) -> Void) {
+    func getTimeline(in context: Context, completion: @escaping (Timeline<ZerverMonitorEntry>) -> Void) {
         Task {
             let entry = await fetchEntry()
             let nextUpdate = Calendar.current.date(byAdding: .minute, value: 15, to: entry.date)!
@@ -45,20 +45,20 @@ struct ServerMonitorProvider: TimelineProvider {
         }
     }
 
-    private func fetchEntry() async -> ServerMonitorEntry {
+    private func fetchEntry() async -> ZerverMonitorEntry {
         do {
             let response = try await StatusService.shared.fetchStatus()
-            return ServerMonitorEntry(date: .now, servers: response.servers, error: nil)
+            return ZerverMonitorEntry(date: .now, servers: response.servers, error: nil)
         } catch {
-            return ServerMonitorEntry(date: .now, servers: [], error: error.localizedDescription)
+            return ZerverMonitorEntry(date: .now, servers: [], error: error.localizedDescription)
         }
     }
 }
 
 // MARK: - Widget Views
 
-struct ServerMonitorWidgetEntryView: View {
-    var entry: ServerMonitorEntry
+struct ZerverMonitorWidgetEntryView: View {
+    var entry: ZerverMonitorEntry
     @Environment(\.widgetFamily) var family
 
     var body: some View {
@@ -119,7 +119,7 @@ struct ServerMonitorWidgetEntryView: View {
             HStack {
                 Image(systemName: "server.rack")
                     .font(.caption)
-                Text("Server Monitor")
+                Text("Zerver Monitor")
                     .font(.caption.bold())
                 Spacer()
                 Text(summaryText)
@@ -176,7 +176,7 @@ struct ServerMonitorWidgetEntryView: View {
             HStack {
                 Image(systemName: "server.rack")
                     .font(.subheadline)
-                Text("Server Monitor")
+                Text("Zerver Monitor")
                     .font(.subheadline.bold())
                 Spacer()
                 Text(summaryText)
@@ -257,24 +257,24 @@ struct ServerMonitorWidgetEntryView: View {
 
 // MARK: - Widget Configuration
 
-struct ServerMonitorWidget: Widget {
-    let kind = "ServerMonitorWidget"
+struct ZerverMonitorWidget: Widget {
+    let kind = "ZerverMonitorWidget"
 
     var body: some WidgetConfiguration {
-        StaticConfiguration(kind: kind, provider: ServerMonitorProvider()) { entry in
-            ServerMonitorWidgetEntryView(entry: entry)
+        StaticConfiguration(kind: kind, provider: ZerverMonitorProvider()) { entry in
+            ZerverMonitorWidgetEntryView(entry: entry)
                 .containerBackground(.fill.tertiary, for: .widget)
         }
-        .configurationDisplayName("Server Monitor")
+        .configurationDisplayName("Zerver Monitor")
         .description("Monitor your server health at a glance.")
         .supportedFamilies([.systemSmall, .systemMedium, .systemLarge])
     }
 }
 
 @main
-struct ServerMonitorWidgetBundle: WidgetBundle {
+struct ZerverMonitorWidgetBundle: WidgetBundle {
     var body: some Widget {
-        ServerMonitorWidget()
+        ZerverMonitorWidget()
         StatusLEDWidget()
     }
 }

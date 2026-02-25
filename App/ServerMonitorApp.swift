@@ -3,7 +3,7 @@ import WidgetKit
 
 #if APP_TARGET
 @main
-struct ServerMonitorApp: App {
+struct ZerverMonitorApp: App {
     @AppStorage("hasSeenOnboarding") private var hasSeenOnboarding = false
     @Environment(\.scenePhase) private var scenePhase
 
