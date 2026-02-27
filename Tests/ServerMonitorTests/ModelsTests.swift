@@ -320,7 +320,7 @@ final class ModelsTests: XCTestCase {
         {
             "servers": [
                 {
-                    "name": "card-engine",
+                    "name": "cardzerver",
                     "url": "http://127.0.0.1:9810/metrics",
                     "poll_every": 15,
                     "last_updated": 1708354200.5,
@@ -361,7 +361,7 @@ final class ModelsTests: XCTestCase {
         let decoded = try JSONDecoder().decode(StatusResponse.self, from: encoded)
 
         XCTAssertEqual(decoded.servers.count, 3)
-        XCTAssertEqual(decoded.servers[0].name, "card-engine")
+        XCTAssertEqual(decoded.servers[0].name, "cardzerver")
         XCTAssertEqual(decoded.servers[0].metrics.count, 3)
         XCTAssertTrue(decoded.servers[0].isHealthy)
         XCTAssertEqual(decoded.servers[1].name, "Redis")
