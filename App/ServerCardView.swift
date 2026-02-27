@@ -119,6 +119,7 @@ struct MetricRowView: View {
     ServerCardView(server: ServerSnapshot(
         name: "Test Server",
         url: "http://localhost:9810/metrics",
+        webUrl: nil,
         pollEvery: 15,
         lastUpdated: Date().timeIntervalSince1970,
         metrics: [

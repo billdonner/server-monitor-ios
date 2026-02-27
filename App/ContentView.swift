@@ -3,6 +3,7 @@ import SwiftUI
 struct ContentView: View {
     @Environment(\.horizontalSizeClass) private var sizeClass
     @AppStorage("hasSeenOnboarding") private var hasSeenOnboarding = false
+    @AppStorage("useVerticalLayout") private var useVerticalLayout = true
     @State private var servers: [ServerSnapshot] = []
     @State private var lastRefresh: Date?
     @State private var errorMessage: String?
@@ -46,11 +47,43 @@ struct ContentView: View {
     @ViewBuilder
     private var contentForSizeClass: some View {
         if sizeClass == .compact {
-            // iPhone: horizontal paging
-            iPhonePagingView
+            if useVerticalLayout {
+                iPhoneVerticalView
+            } else {
+                iPhonePagingView
+            }
         } else {
-            // iPad: 2-column grid
             iPadGridView
+        }
+    }
+
+    // MARK: - Layout Toggle
+
+    private var layoutToggle: some View {
+        Picker("Layout", selection: $useVerticalLayout) {
+            Image(systemName: "arrow.up.arrow.down")
+                .tag(true)
+            Image(systemName: "arrow.left.arrow.right")
+                .tag(false)
+        }
+        .pickerStyle(.segmented)
+        .frame(width: 80)
+    }
+
+    // MARK: - iPhone Vertical
+
+    private var iPhoneVerticalView: some View {
+        VStack(spacing: 0) {
+            header
+            ScrollView {
+                LazyVStack(spacing: 12) {
+                    ForEach(servers) { server in
+                        ServerCardView(server: server)
+                    }
+                }
+                .padding(.horizontal, 16)
+                .padding(.vertical, 8)
+            }
         }
     }
 
@@ -120,6 +153,9 @@ struct ContentView: View {
                 }
             }
             Spacer()
+            if sizeClass == .compact {
+                layoutToggle
+            }
             if !warnedServers.isEmpty {
                 Button {
                     Task { await clearWarnings() }
