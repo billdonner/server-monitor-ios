@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ZerverMonitor - Support</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, sans-serif; color: #333; line-height: 1.6; max-width: 720px; margin: 0 auto; padding: 24px; }
+  h1 { font-size: 2em; margin-bottom: 8px; }
+  h2 { font-size: 1.3em; margin-top: 32px; margin-bottom: 8px; color: #1a1a2e; }
+  p, li { margin-bottom: 8px; }
+  ul { padding-left: 24px; }
+  .subtitle { color: #666; font-size: 1.1em; margin-bottom: 24px; }
+  .faq { background: #f8f9fa; border-radius: 8px; padding: 16px; margin-bottom: 12px; }
+  .faq strong { display: block; margin-bottom: 4px; }
+  footer { margin-top: 48px; padding-top: 16px; border-top: 1px solid #ddd; font-size: 0.85em; color: #888; }
+</style>
+</head>
+<body>
+
+<h1>ZerverMonitor</h1>
+<p class="subtitle">Support</p>
+
+<h2>Frequently Asked Questions</h2>
+
+<div class="faq">
+<strong>What does ZerverMonitor do?</strong>
+<p>ZerverMonitor is a real-time dashboard that monitors your servers. It polls HTTP endpoints, Redis instances, and PostgreSQL databases on configurable intervals and displays their status with color-coded cards.</p>
+</div>
+
+<div class="faq">
+<strong>How do I configure which servers to monitor?</strong>
+<p>The server list is defined on the backend in a YAML configuration file. The iOS and watchOS apps fetch the current status from the backend API automatically.</p>
+</div>
+
+<div class="faq">
+<strong>What do the card colors mean?</strong>
+<p><strong>Green:</strong> Server is healthy and responding. <strong>Yellow:</strong> Server recovered from an error but hasn't been cleared yet (sticky warning). <strong>Red:</strong> Server is currently unreachable or returning errors. <strong>Gray:</strong> Waiting for the first poll result.</p>
+</div>
+
+<div class="faq">
+<strong>What is the yellow "warned" state?</strong>
+<p>When a server fails and later recovers, it enters a yellow "warned" state instead of going straight back to green. This makes it visible that something went wrong, even after recovery. You can clear all warnings from the web dashboard.</p>
+</div>
+
+<div class="faq">
+<strong>How often does the app refresh?</strong>
+<p>The iOS app polls the backend API every few seconds. Each server on the backend has its own independent poll interval (typically 10-30 seconds) configured in the YAML file.</p>
+</div>
+
+<div class="faq">
+<strong>Does ZerverMonitor work on Apple Watch?</strong>
+<p>Yes. ZerverMonitor includes a watchOS companion app with WidgetKit complications so you can see server status at a glance on your watch face.</p>
+</div>
+
+<div class="faq">
+<strong>Is ZerverMonitor free?</strong>
+<p>Yes. ZerverMonitor is free with no ads and no in-app purchases.</p>
+</div>
+
+<h2>Contact Us</h2>
+<p>If you need further help, please open an issue on our GitHub repository:</p>
+<p><a href="https://github.com/billdonner/server-monitor-ios/issues">github.com/billdonner/server-monitor-ios/issues</a></p>
+
+<h2>Related</h2>
+<ul>
+  <li><a href="index.html">Home</a></li>
+  <li><a href="privacy.html">Privacy Policy</a></li>
+</ul>
+
+<footer>
+<p>ZerverMonitor &copy; 2026 Bill Donner. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
