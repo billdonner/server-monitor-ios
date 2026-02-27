@@ -196,7 +196,7 @@ final class ModelsTests: XCTestCase {
 
         let metric = try JSONDecoder().decode(Metric.self, from: json)
         XCTAssertTrue(metric.isWarning)
-        XCTAssertEqual(metric.computedColor, "yellow")
+        XCTAssertEqual(metric.computedColor, "red")
     }
 
     func testMetricWarningBelow() throws {

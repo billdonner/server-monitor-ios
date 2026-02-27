@@ -13,6 +13,7 @@ struct StatusResponse: Codable, Sendable {
 struct ServerSnapshot: Codable, Identifiable, Sendable {
     let name: String
     let url: String
+    let webUrl: String?
     let pollEvery: Int
     let lastUpdated: Double?
     let metrics: [Metric]
@@ -55,6 +56,7 @@ struct ServerSnapshot: Codable, Identifiable, Sendable {
 
     enum CodingKeys: String, CodingKey {
         case name, url, metrics, error
+        case webUrl = "web_url"
         case pollEvery = "poll_every"
         case lastUpdated = "last_updated"
         case hadError = "had_error"
@@ -83,7 +85,7 @@ struct Metric: Codable, Identifiable, Sendable {
 
     var computedColor: String {
         if let color { return color }
-        if isWarning { return "yellow" }
+        if isWarning { return "red" }
         return "green"
     }
 
